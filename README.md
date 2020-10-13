@@ -6,7 +6,7 @@ this project, you will build a simple IoT platform.
 
 **Topic: Device-application communication**
 
-- Read through the documents about IoT platforms, e.g., [AWS IoT](https://aws.amazon.com/iot/), [Google IoT](https://cloud.google.com/solutions/iot#:~:text=Google Cloud IoT is a,for all your IoT needs.), and [DeviceHive](https://www.hologram.io/). Understand the key features of the IoT platform.
+- Read through the documents about IoT platforms, e.g., [AWS IoT](https://aws.amazon.com/iot/), [Google IoT](https://cloud.google.com/solutions/iot#:~:text=Google%20Cloud%20IoT%20is%20a,for%20all%20your%20IoT%20needs), and [DeviceHive](https://www.hologram.io/). Understand the key features of the IoT platform.
 
 - Implement a prototype of an IoT platform that can establish reliable and secure device-application communication. This prototype should include the following modules:
 
@@ -22,7 +22,7 @@ this project, you will build a simple IoT platform.
 
 **Topic: Device-to-device communication** 
 
-- Read through the documents about IoT platforms, e.g., [AWS IoT](https://aws.amazon.com/iot/), [Google IoT](https://cloud.google.com/solutions/iot#:~:text=Google%20Cloud%20IoT%20is%20a,for%20all%20your%20IoT%20needs.), and [DeviceHive](https://www.hologram.io/). Understand the key features of the IoT platform.
+- Read through the documents about IoT platforms, e.g., [AWS IoT](https://aws.amazon.com/iot/), [Google IoT](https://cloud.google.com/solutions/iot#:~:text=Google%20Cloud%20IoT%20is%20a,for%20all%20your%20IoT%20needs), and [DeviceHive](https://www.hologram.io/). Understand the key features of the IoT platform.
 
 - Implement a prototype of an IoT platform that can establish reliable and secure device-device communication. This prototype should include the following modules:
 
