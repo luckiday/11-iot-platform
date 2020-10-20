@@ -35,3 +35,7 @@ this project, you will build a simple IoT platform.
 You can build the IoT platform on your own laptop/PC and use mobile phones to simulate the IoT devices. You may use python security libraries, including [SSL](https://docs.python.org/2/library/ssl.html) and others. Also, you can try with existing open-source platforms, e.g., [DeviceHive](https://www.hologram.io/).
 
 - *Optional: optimize your platform for LTE/LTE-M/nb-IoT network and IoT traffic with small packets.
+
+
+
+---
