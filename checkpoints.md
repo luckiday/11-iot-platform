@@ -2,10 +2,10 @@
 
 ### Week 3
 
-- [ ] Survey: Study existing IoT platforms 
-    - [ ] Functinos,
-
+- [ ] Survey: study existing IoT platforms 
+    - [ ] Functinos
     - [ ] Source code and Architecture
+    - [ ] Give a 10-min introduction
 
 ### Week 4
 
@@ -20,11 +20,11 @@
 
 ### Week 6
 
-- [ ] Develop: Device-server authentication
+- [ ] Develop: device-server authentication
 
 ### Week 7
 
-- [ ] Develop: Encryption and integrity 
+- [ ] Develop: encryption and integrity 
 
 ### Week 8
 
