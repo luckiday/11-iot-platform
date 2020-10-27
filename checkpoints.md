@@ -5,7 +5,7 @@
 - [ ] Survey: study existing IoT platforms 
     - [ ] Functinos
     - [ ] Source code and Architecture
-    - [ ] Give a 10-min introduction
+    - [X] Give a 10-min introduction
 
 ### Week 4
 
