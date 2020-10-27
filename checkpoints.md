@@ -3,7 +3,7 @@
 ### Week 3
 
 - [ ] Survey: study existing IoT platforms 
-    - [ ] Functinos
+    - [ ] Functions
     - [ ] Source code and Architecture
     - [ ] Give a 10-min introduction
 
