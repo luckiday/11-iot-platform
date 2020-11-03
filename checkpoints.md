@@ -2,17 +2,17 @@
 
 ### Week 3
 
-- [ ] Survey: study existing IoT platforms 
-    - [ ] Functinos
-    - [ ] Source code and Architecture
+- [X] Survey: study existing IoT platforms 
+    - [X] Functinos
+    - [X] Source code and Architecture
     - [X] Give a 10-min introduction
 
 ### Week 4
 
-- [ ] Proposal: developing plan
-  - [ ] Functions to implement
-  - [ ] Platform/basis for your implementation
-  - [ ] Additional features
+- [X] Proposal: developing plan
+  - [X] Functions to implement
+  - [X] Platform/basis for your implementation
+  - [X] Additional features
 
 ### Week 5
 
