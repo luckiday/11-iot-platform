@@ -1,7 +1,4 @@
 import os
-import postgresql
-import datetime
-import postgresql.driver as pg_driver
 from flask import Flask, Blueprint
 from flask_restful import Api
 from flask_jwt import JWT
@@ -21,12 +18,11 @@ def create_app():
 
     @flask_app.route('/message',methods = ['POST', 'GET'])
     def message():
+        global last_message
         if request.method == 'POST':
-            global last_message
             last_message = request.json['message']
             return 'Success!'
         else:
-            global last_message
             return last_message
 
     return flask_app
