@@ -16,7 +16,7 @@
 
 ### Week 5
 
-- [ ] Baseline: socket setup and sending receiving messages
+- [X] Baseline: socket setup and sending receiving messages
 
 ### Week 6
 
