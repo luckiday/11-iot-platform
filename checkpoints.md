@@ -20,11 +20,11 @@
 
 ### Week 6
 
-- [ ] Develop: device-server authentication
+- [X] Develop: device-server authentication
 
 ### Week 7
 
-- [ ] Develop: encryption and integrity 
+- [X] Develop: encryption and integrity 
 
 ### Week 8
 

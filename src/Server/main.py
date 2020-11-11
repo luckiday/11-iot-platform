@@ -1,7 +1,7 @@
 import os
-from flask import Flask, Blueprint
-from flask_restful import Api
-from flask_jwt import JWT
+import jwt
+import datetime
+from flask import Flask
 from flask import request
 
 last_message = ''
@@ -20,11 +20,16 @@ def create_app():
     def message():
         global last_message
         if request.method == 'POST':
-            last_message = request.json['message']
-            return 'Success!'
+            try:
+                jwt.decode(request.json['token'], flask_app.config['JWT_SECRET_KEY'], algorithms=['HS256'])
+            except Exception as e:
+                return 'Failed! bad or missing token'
+            else: 
+                last_message =  jwt.decode(request.json['token'], flask_app.config['JWT_SECRET_KEY'], algorithms=['HS256'])['message']
+                return 'Success!'
         else:
-            return last_message
-
+            jwt_payload = jwt.encode({'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=15), 'message':last_message}, flask_app.config['JWT_SECRET_KEY']).decode('utf-8')
+            return jwt_payload
     return flask_app
 
 
