@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 def contact_base():
     JWT_SECRET_KEY = os.environ.get('SECRET_KEY')
     #url = 'http://127.0.0.1:8000'
-    url = 'http://cs211-server.herokuapp.com'
+    url = 'https://cs211-server.herokuapp.com'
     counter = 1
     while(True):
         headers = {'Content-Type': 'application/json',}
