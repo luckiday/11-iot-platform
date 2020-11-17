@@ -1,16 +1,64 @@
 #!flask/bin/python
 from flask import Flask, jsonify, abort, make_response, request
+import requests
+import logging
+import sys
+import sched, time
 
 app = Flask(__name__)
-# id, time, message
+# id, device, message, done
 messages = []
+message_scheduler = sched.scheduler(time.time, time.sleep)
+failed_messages = []
+sent_messages = []
 
-@app.route('/todo/api/v1.0/messages', methods=['GET'])
+# ip
+devices = []
+currentID = 0
+
+def ping_device(message_index):
+    message = messages[message_index]
+
+    try:
+        response = requests.post('http://' + message['device']['ip'] + '/api/devices', json = message)
+    except:
+        print('Error', file=sys.stderr)
+        failed_messages.append(messages.pop(message_index))
+    else:
+        sent_messages.append(messages.pop(message_index))
+
+
+def send_messages():
+    for idx, message in enumerate(messages):
+
+        ping_device(0)
+
+@app.route('/api/devices', methods=['GET'])
+def get_devices():
+    return jsonify({'devices': devices})
+
+@app.route('/api/devices/<device_ip>', methods=['GET'])
+def get_device(device_ip):
+    device = [device for device in devices if device['ip'] == device_ip]
+    if len(device) == 0:
+        abort(404)
+    return jsonify({'device': device[0]})
+
+@app.route('/api/devices', methods=['POST'])
+def create_device():
+    if not request.json or not 'ip' in request.json:
+        abort(400)
+    device = {
+        'ip': request.json['ip']
+    }
+    devices.append(device)
+    return jsonify({'device': device}), 201
+
+@app.route('/api/messages', methods=['GET'])
 def get_messages():
     return jsonify({'messages': messages})
 
-
-@app.route('/todo/api/v1.0/messages/<int:message_id>', methods=['GET'])
+@app.route('/api/messages/<int:message_id>', methods=['GET'])
 def get_message(message_id):
     message = [message for message in messages if message['id'] == message_id]
     if len(message) == 0:
@@ -21,19 +69,24 @@ def get_message(message_id):
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
-@app.route('/todo/api/v1.0/messages', methods=['POST'])
+@app.route('/api/messages', methods=['POST'])
 def create_message():
-    if not request.json or not 'title' in request.json:
+    global currentID
+    if not request.json or not 'device' in request.json:
         abort(400)
+    currentID += 1
     message = {
-        'id': messages[-1]['id'] + 1,
+        'id': currentID,
+        'device': request.json['device'],
         'message': request.json['message'],
-        'done': False
+        'repeated_sends': 0
     }
+    print(messages, file=sys.stderr)
     messages.append(message)
-    return jsonify({'message': task}), 201
+    send_messages()
+    return jsonify({'message': message}), 201
 
-@app.route('/todo/api/v1.0/messages/<int:message_id>', methods=['PUT'])
+@app.route('/api/messages/<int:message_id>', methods=['PUT'])
 def update_message(message_id):
     message = [message for message in messages if message['id'] == message_id]
     if len(message) == 0:
@@ -44,11 +97,11 @@ def update_message(message_id):
         abort(400)
     if 'done' in request.json and type(request.json['done']) is not bool:
         abort(400)
-    task[0]['message'] = request.json.get('message', task[0]['message'])
-    task[0]['done'] = request.json.get('done', task[0]['done'])
-    return jsonify({'task': task[0]})
+    message[0]['message'] = request.json.get('message', message[0]['message'])
+    message[0]['done'] = request.json.get('done', message[0]['done'])
+    return jsonify({'message': message[0]})
 
-@app.route('/todo/api/v1.0/messages/<int:message_id>', methods=['DELETE'])
+@app.route('/api/messages/<int:message_id>', methods=['DELETE'])
 def delete_message(message_id):
     message = [message for message in messages if message['id'] == message_id]
     if len(message) == 0:
@@ -58,4 +111,5 @@ def delete_message(message_id):
 
 
 if __name__ == '__main__':
+    app.debug = True
     app.run(host='0.0.0.0')
