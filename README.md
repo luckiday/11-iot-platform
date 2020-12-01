@@ -26,3 +26,14 @@ this project, you will build a simple IoT platform.
  - run "gunicorn main:app"
 
  Note - The most upto date server is running on Heroku. 
+
+
+** How to set up cron job for start-up **
+place a file names Iotstartup.conf in etc/systemd with the ollowing lines:
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+exec /path/to/script.py
+
+
+This should make the code run duriing startup or rebooot. 
