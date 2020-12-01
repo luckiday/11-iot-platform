@@ -18,20 +18,21 @@ currentID = 0
 
 def ping_device(message_index):
     message = messages[message_index]
-
     try:
-        response = requests.post('http://' + message['device']['ip'] + '/api/devices', json = message)
+        response = requests.post('http://' + message['target_device']['ip'] + '/api/messages', json = message)
     except:
         print('Error', file=sys.stderr)
         failed_messages.append(messages.pop(message_index))
     else:
         sent_messages.append(messages.pop(message_index))
+    print(sent_messages, file=sys.stderr)
+
 
 
 def send_messages():
     for idx, message in enumerate(messages):
+        ping_device(idx)
 
-        ping_device(0)
 
 @app.route('/api/devices', methods=['GET'])
 def get_devices():
@@ -72,16 +73,16 @@ def not_found(error):
 @app.route('/api/messages', methods=['POST'])
 def create_message():
     global currentID
-    if not request.json or not 'device' in request.json:
+    if not request.json or not 'target_device' in request.json:
         abort(400)
     currentID += 1
     message = {
         'id': currentID,
-        'device': request.json['device'],
+        'origin_device': request.remote_addr,
+        'target_device': request.json['target_device'],
         'message': request.json['message'],
         'repeated_sends': 0
     }
-    print(messages, file=sys.stderr)
     messages.append(message)
     send_messages()
     return jsonify({'message': message}), 201
@@ -112,4 +113,4 @@ def delete_message(message_id):
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=8000)
