@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    {% for message in messages %}
+      <p>From: {{message.origin_device}} : {{message.message}}</p>
+    {% endfor %}
+    <form action="{{ url_for('submit')}}" method="POST">
+        <select name=devices>
+          {% for device in available_devices %}
+            <option value="{{device}}" SELECTED> {{device}}</option>
+          {% endfor %}
+        </select>
+        <input type="text" name='message'>
+        <input type="submit">
+    </form>
+  </body>
+</html>
