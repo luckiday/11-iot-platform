@@ -1,12 +1,11 @@
 # Project Template
 Template for project management
 
-Build server docker on port 5000
+Run Server
+- Go to server folder /src/Server
+- Run server with python3 app.py
 
-- Build image `docker build -t restful-api .`
-- Run container in detached mode and publish port 5000 `docker run -d -p 5000:5000 restful-api`
-- API should be accessible on port 5000 `curl -i localhost:5000/api/messages`
-
+Server will be running on http://localhost:8000/
 
 Server API
 - /api/messages - Get or Post current messages in server
@@ -14,12 +13,15 @@ Server API
 - /api/devices - Get or Post devices connected to server
 - /api/devices/device_id - Get selected device if it exists in server
 
-Run Client on specified Port at local IP
- *Currently working on running on docker port, run local env with python app.py*
- *Run by python.app.py --deviceID <IP of target device to send message> --message <Message you want to send to IP>
-Client API
-- /api/messages - Get or create message in client
+Run Client
+- Run Client at /src/Server
+- python3 app.py
+
+Can interact with client at http://localhost:5000/
+
+Marks current Device ID
+List of messages received by device
+Dropdown of all devices currently in server. Can connect multiple devices, using the same client app.py.
   
 To Do
 - Message failing and recovery
-- Encryption and security
