@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
   <body>
+    Current Device is {{currentDevice}}
     {% for message in messages %}
-      <p>From: {{message.origin_device}} : {{message.message}}</p>
+      <p>From: {{message.origin_device.device_id}} : {{message.message}}</p>
     {% endfor %}
     <form action="{{ url_for('submit')}}" method="POST">
         <select name=devices>
           {% for device in available_devices %}
-            <option value="{{device}}" SELECTED> {{device}}</option>
+            <option value="{{device}}" SELECTED> {{device.device_id}}</option>
           {% endfor %}
         </select>
         <input type="text" name='message'>

@@ -25,7 +25,6 @@ def ping_device(message_index):
         failed_messages.append(messages.pop(message_index))
     else:
         sent_messages.append(messages.pop(message_index))
-    print(sent_messages, file=sys.stderr)
 
 
 
@@ -50,6 +49,7 @@ def create_device():
     if not request.json or not 'ip' in request.json:
         abort(400)
     device = {
+        'device_id': len(devices) + 1,
         'ip': request.json['ip']
     }
     devices.append(device)
@@ -78,7 +78,7 @@ def create_message():
     currentID += 1
     message = {
         'id': currentID,
-        'origin_device': request.remote_addr,
+        'origin_device': {'ip': request.remote_addr, 'device_id': request.json['device_id']},
         'target_device': request.json['target_device'],
         'message': request.json['message'],
         'repeated_sends': 0

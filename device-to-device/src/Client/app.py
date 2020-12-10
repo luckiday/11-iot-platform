@@ -24,6 +24,8 @@ args = parser.parse_args()
 available_devices = []
 messages = []
 failed_messages = []
+deviceID = 1
+
 
 def get_devices():
     deviceRequest = requests.get('http://' + serverIP + '/api/devices')
@@ -41,8 +43,12 @@ def ping_server():
 
 @app.route('/')
 def home():
+    global deviceID
     ping_server()
-    return render_template('index.html', available_devices = available_devices, messages=messages)
+    for device in available_devices:
+        if device['ip'] == currentIP:
+            deviceID = device['device_id']
+    return render_template('index.html', available_devices = available_devices, messages=messages, currentDevice = deviceID)
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -64,8 +70,8 @@ def create_message():
         abort(400)
 
     decoded_message = base64.b64decode(request.json['message']).decode('ascii')
-    print(request.json, file=sys.stderr)
     message = {
+        'device_id': deviceID,
         'origin_device': request.json['origin_device'],
         'id': request.json['id'],
         'message': decoded_message,
@@ -80,7 +86,7 @@ def send_message(target_ip, message):
     if not device:
         print('Target Device does not exist', file=sys.stderr)
         return
-    json_message = {'target_device' : device[0], 'message': message}
+    json_message = {'target_device' : device[0], 'device_id': deviceID, 'message': message}
     messageRequest = requests.post('http://' + serverIP + '/api/messages', json = json_message)
 
 if __name__ == '__main__':
