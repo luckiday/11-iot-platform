@@ -13,6 +13,7 @@ Server API
 - /api/devices - Get or Post devices connected to server
 - /api/devices/device_id - Get selected device if it exists in server
 
+Get network IP of server, and update the outgoing IP address of the server to allow for access of other devices.
 Run Client
 - Run Client at /src/Server
 - python3 app.py
@@ -24,4 +25,5 @@ List of messages received by device
 Dropdown of all devices currently in server. Can connect multiple devices, using the same client app.py.
   
 To Do
+- Load server onto hosting website to allow for more flexibility
 - Message failing and recovery
